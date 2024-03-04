@@ -5,13 +5,16 @@ using UnityEngine.Events;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [SerializedField] private List<dialogueString> dialogueStrings = new List<dialogueString>();
-    [SerializedField] private Transform NPCTransform;
+    [SerializeField] private List<dialogueString> dialogueStrings = new List<dialogueString>();
+    [SerializeField] private Transform NPCTransform;
+
+    private bool hasSpoken = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !hasSpoken){
-            other.gameObject.GetComponent<DialogueManager>().DialogueStart(dialogueString, NPCTransform);
+        if (other.CompareTag("Player") && !hasSpoken)
+        {
+            if (other.gameObject.GetComponent<DialogueManager>().DialogueStart(dialogueStrings, NPCTransform));
             hasSpoken = true;
         }
     }
@@ -20,8 +23,8 @@ public class DialogueTrigger : MonoBehaviour
 [System.Serializable]
 public class dialogueString
 {
-    public string text; //Represent the text that the npc says
-    public bool isEnd; //Represents if the lins is the final line for the conversation
+    public string text; //Represents text npc says
+    public bool isEnd; //Represents if line is final line for conversation
 
     [Header("Branch")]
     public bool isQuestion;

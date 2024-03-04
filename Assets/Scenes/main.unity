@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 495275257}
   - component: {fileID: 495275256}
   - component: {fileID: 495275255}
-  - component: {fileID: 495275254}
+  - component: {fileID: 495275258}
   m_Layer: 0
   m_Name: DialTrigger
   m_TagString: Untagged
@@ -405,18 +405,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 584290408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &495275254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495275252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58c3f1d76d1a86d4699cb4294a107657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &495275255
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -488,6 +476,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 495275252}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &495275258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495275252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c3f1d76d1a86d4699cb4294a107657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &536954891
 GameObject:
   m_ObjectHideFlags: 0
