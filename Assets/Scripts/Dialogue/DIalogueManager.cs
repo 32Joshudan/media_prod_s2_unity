@@ -19,11 +19,11 @@ public class DialogueManager : MonoBehaviour
 
     /*[Header("Player")]
     [SerializeField] private Polyart.FirstPersonController_Dreamscape firstPerson Controller;
-    private Transform playerCamera;
+    private Transform playerCamera;*/
     
-    private int currentDialogueIndex = 0
+    private int currentDialogueIndex = 0;
     
-    private void Start()
+    /*private void Start()
     {
         dialogue.Parent.SetActive(false);
         playerCamera = Camera.main.transform;
@@ -34,7 +34,7 @@ public class DialogueManager : MonoBehaviour
         dialogueParent.SetActive(true);
         //firstPersonController.enabled = false;
 
-        Cursor.lockstate = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         //StartCoroutine(TurnCameraTowardsNPC());
@@ -72,6 +72,8 @@ public class DialogueManager : MonoBehaviour
         playerCamera.rotagtion = targetRotation;
     }*/
     
+    private bool optionSelected = false;
+
     private IEnumerator PrintDialogue()
     {
         while (currentDialogueIndex < dialogueList.Count)
@@ -90,7 +92,10 @@ public class DialogueManager : MonoBehaviour
                 option1Button.GetComponentInChildren<TMP_Text>().text = line.answerOption1;
                 option2Button.GetComponentInChildren<TMP_Text>().text = line.answerOption2;
 
-                // https://youtu.be/BEaOHWkZhtE?t=1154    S T A R T  H E R E
+                option1Button.onClick.AddListener(() => HandleOptionSelected(line.option1IndexJump));
+                option2Button.onClick.AddListener(() => HandleOptionSelected(line.option2IndexJump));
+
+                yield return new WaitUntil(() => optionSelected);
             }
             else
             {
@@ -98,6 +103,50 @@ public class DialogueManager : MonoBehaviour
             }
 
             line.endDialogueEvent?.Invoke();
+
+            optionSelected = false;
         }
+        
+        DialogueStop();
+    }
+
+    private void HandleOptionSelected(int indexJump)
+    {
+        optionSelected = false;
+        DisableButtons();
+
+        currentDialogueIndex = indexJump;
+    }
+
+    private IEnumerator TypeText(string text)
+    {
+        dialogueText.text = "";
+        foreach(char letter in text.ToCharArray())
+        {
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+
+        if(!dialogueList[currentDialogueIndex].isQuestion)
+        {
+            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        }
+
+        if (dialogueList[currentDialogueIndex].isEnd)
+            DialogueStop();
+
+        currentDialogueIndex++;
+    }
+
+    private void DialogueStop()
+    {
+        StopAllCoroutines();
+        dialogueText.text = "";
+        dialogueParent.SetActive(false);
+
+        // firstPersonController.enabled = true;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

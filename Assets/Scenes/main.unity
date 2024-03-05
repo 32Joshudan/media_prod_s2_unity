@@ -488,6 +488,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c3f1d76d1a86d4699cb4294a107657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueStrings:
+  - text: Hello!
+    isEnd: 0
+    isQuestion: 0
+    answerOption1: 
+    answerOption2: 
+    option1IndexJump: 0
+    option2IndexJump: 0
+    startDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    endDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  NPCTransform: {fileID: 579642513}
 --- !u!1 &536954891
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +923,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56016f7be71324446a5600bac72e1885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueParent: {fileID: 0}
+  dialogueText: {fileID: 0}
+  option1Button: {fileID: 0}
+  option2Button: {fileID: 0}
+  typingSpeed: 0.05
+  turnSpeed: 2
 --- !u!1 &807014525
 GameObject:
   m_ObjectHideFlags: 0
