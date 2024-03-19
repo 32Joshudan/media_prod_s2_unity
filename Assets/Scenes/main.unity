@@ -608,58 +608,69 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueStrings:
-  - text: Hello!
+  - text: Hello! How are you
     isEnd: 0
-    isQuestion: 0
-    answerOption1: 
-    answerOption2: 
-    option1IndexJump: 0
-    option2IndexJump: 0
-    startDialogueEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    endDialogueEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - text: How are you?
-    isEnd: 0
+    yesOrNo: 0
+    skipTo: 0
     isQuestion: 1
-    answerOption1: Fine
-    answerOption2: Not Fine
-    option1IndexJump: 2
-    option2IndexJump: 3
-    startDialogueEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    endDialogueEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - text: good, good
-    isEnd: 1
+    answerOption1: I'm Fine
+    answerOption2: It's All Good
+    option1IndexJump: 1
+    option2IndexJump: 1
+  - text: Are you really?
+    isEnd: 0
+    yesOrNo: 0
+    skipTo: 0
     isQuestion: 0
     answerOption1: 
     answerOption2: 
     option1IndexJump: 0
     option2IndexJump: 0
-    startDialogueEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    endDialogueEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - text: (T_T)
-    isEnd: 1
+  - text: Haha! I'm just kidding!
+    isEnd: 0
+    yesOrNo: 0
+    skipTo: 0
     isQuestion: 0
     answerOption1: 
     answerOption2: 
     option1IndexJump: 0
     option2IndexJump: 0
-    startDialogueEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    endDialogueEvent:
-      m_PersistentCalls:
-        m_Calls: []
+  - text: So where are you going?
+    isEnd: 0
+    yesOrNo: 0
+    skipTo: 0
+    isQuestion: 1
+    answerOption1: Singapore
+    answerOption2: San Francisco
+    option1IndexJump: 4
+    option2IndexJump: 5
+  - text: Ha, getting back your luggage huh?
+    isEnd: 0
+    yesOrNo: 1
+    skipTo: 6
+    isQuestion: 0
+    answerOption1: 
+    answerOption2: 
+    option1IndexJump: 0
+    option2IndexJump: 0
+  - text: Ha, talk about low budget flights!
+    isEnd: 0
+    yesOrNo: 0
+    skipTo: 0
+    isQuestion: 0
+    answerOption1: 
+    answerOption2: 
+    option1IndexJump: 0
+    option2IndexJump: 0
+  - text: Anyway, have a good time!
+    isEnd: 0
+    yesOrNo: 0
+    skipTo: 0
+    isQuestion: 0
+    answerOption1: 
+    answerOption2: 
+    option1IndexJump: 0
+    option2IndexJump: 0
   NPCTransform: {fileID: 245826885}
 --- !u!1 &536954891
 GameObject:
@@ -674,7 +685,7 @@ GameObject:
   - component: {fileID: 536954894}
   - component: {fileID: 536954893}
   m_Layer: 5
-  m_Name: Button
+  m_Name: TopButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1005,8 +1016,14 @@ MonoBehaviour:
   dialogueText: {fileID: 1089765480}
   option1Button: {fileID: 536954893}
   option2Button: {fileID: 1868728585}
-  typingSpeed: 0.05
+  typingSpeed: 0.01
   turnSpeed: 2
+  thirdPersonController: {fileID: 801591074}
+--- !u!143 &801591074 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 4416926081852918491, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+  m_PrefabInstance: {fileID: 801591067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &807014525
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,7 +2734,7 @@ GameObject:
   - component: {fileID: 1868728586}
   - component: {fileID: 1868728585}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: BottomButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

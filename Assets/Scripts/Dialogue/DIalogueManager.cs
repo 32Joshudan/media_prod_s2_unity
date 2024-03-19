@@ -15,29 +15,32 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private float turnSpeed = 2f;
 
+    [SerializeField] DialogueTrigger yesOrNo;
+        [SerializeField] DialogueTrigger skipTo;
+
     private List<dialogueString> dialogueList;
 
-    /*[Header("Player")]
-    [SerializeField] private Polyart.FirstPersonController_Dreamscape firstPerson Controller;
-    private Transform playerCamera;*/
-    
+    [Header("Player")]
+    [SerializeField] private CharacterController thirdPersonController; //reference off controller "polyart" is a class from the asset pack the tutorial uses. swap it with a reference for the controller
+    private Transform playerCamera;
+
     private int currentDialogueIndex = 0;
-    
-    /*private void Start()
+
+    private void Start()
     {
-        dialogue.Parent.SetActive(false);
+        dialogueParent.SetActive(false);
         playerCamera = Camera.main.transform;
-    } */
-    
+    }
+
     public void DialogueStart(List<dialogueString> textToPrint, Transform NPC)
     {
         dialogueParent.SetActive(true);
-        //firstPersonController.enabled = false;
+        thirdPersonController.enabled = false;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        //StartCoroutine(TurnCameraTowardsNPC());
+        StartCoroutine(TurnCameraTowardsNPC(NPC));
 
         dialogueList = textToPrint;
         currentDialogueIndex = 0;
@@ -45,33 +48,33 @@ public class DialogueManager : MonoBehaviour
         DisableButtons();
 
         StartCoroutine(PrintDialogue());
-    }    
+    }
 
     private void DisableButtons()
     {
         option1Button.interactable = false;
         option2Button.interactable = false;
 
-        option1Button.GetComponentInChildren<TMP_Text>().text = "No Option";
-        option2Button.GetComponentInChildren<TMP_Text>().text = "No Option";
+        option1Button.GetComponentInChildren<TMP_Text>().text = "-";
+        option2Button.GetComponentInChildren<TMP_Text>().text = "-";
     }
 
-    /*private IEnumerator TurnCameraTowardsNPC(Transform NPC)
+    private IEnumerator TurnCameraTowardsNPC(Transform NPC)
     {
-        Quaternian startRotation = playerCamera.rotation;
-        Quaternian targetRotation = Quaternian.LookRotation(NPC.position - playerCamera.position);
+        Quaternion startRotation = playerCamera.rotation;
+        Quaternion targetRotation = Quaternion.LookRotation(NPC.position - playerCamera.position);
 
         float elapsedTime = 0f;
-        while(elapsedTime < 1f)
+        while (elapsedTime < 1f)
         {
-            playerCamera.rotation = Quaternian.Slerp(startRotation, targetRotation, elapsedTime);
+            playerCamera.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime);
             elapsedTime += Time.deltaTime * turnSpeed;
             yield return null;
         }
 
-        playerCamera.rotagtion = targetRotation;
-    }*/
-    
+        playerCamera.rotation = targetRotation;
+    }
+
     private bool optionSelected = false;
 
     private IEnumerator PrintDialogue()
@@ -80,10 +83,15 @@ public class DialogueManager : MonoBehaviour
         {
             dialogueString line = dialogueList[currentDialogueIndex];
 
-            line.startDialogueEvent?.Invoke();
+
+            /*if (line.yesOrNo)
+            {
+                HandleOptionSelected(line.skipTo);
+            }*/
 
             if (line.isQuestion)
             {
+                Debug.Log("doobie woobie");
                 yield return StartCoroutine(TypeText(line.text));
 
                 option1Button.interactable = true;
@@ -102,17 +110,17 @@ public class DialogueManager : MonoBehaviour
                 yield return StartCoroutine(TypeText(line.text));
             }
 
-            line.endDialogueEvent?.Invoke();
+            //line.endDialogueEvent?.Invoke();
 
             optionSelected = false;
         }
-        
+
         DialogueStop();
     }
 
     private void HandleOptionSelected(int indexJump)
     {
-        optionSelected = false;
+        optionSelected = true;
         DisableButtons();
 
         currentDialogueIndex = indexJump;
@@ -121,14 +129,15 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator TypeText(string text)
     {
         dialogueText.text = "";
-        foreach(char letter in text.ToCharArray())
+        foreach (char letter in text.ToCharArray())
         {
             dialogueText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        if(!dialogueList[currentDialogueIndex].isQuestion)
+        if (!dialogueList[currentDialogueIndex].isQuestion)
         {
+            Debug.Log("dongly wongly is not quesion");
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
         }
 
@@ -138,13 +147,22 @@ public class DialogueManager : MonoBehaviour
         currentDialogueIndex++;
     }
 
+    private void skipDialogue()
+    {
+        if (dialogueString.yesOrNo = true)
+        {
+            Debug.Log("Hooba Dooba");
+        }
+
+    }
+
     private void DialogueStop()
     {
         StopAllCoroutines();
         dialogueText.text = "";
         dialogueParent.SetActive(false);
 
-        // firstPersonController.enabled = true;
+        thirdPersonController.enabled = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

@@ -26,6 +26,10 @@ public class dialogueString
     public string text; //Represents text npc says
     public bool isEnd; //Represents if line is final line for conversation
 
+[Header("Skip Line?")]
+public bool yesOrNo;
+public int skipTo;
+
     [Header("Branch")]
     public bool isQuestion;
     public string answerOption1;
@@ -33,7 +37,7 @@ public class dialogueString
     public int option1IndexJump;
     public int option2IndexJump;
 
-    [Header("Triggered Events")]
+    /*[Header("Triggered Events")]
     public UnityEvent startDialogueEvent;
-    public UnityEvent endDialogueEvent;
+    public UnityEvent endDialogueEvent;*/
 }
