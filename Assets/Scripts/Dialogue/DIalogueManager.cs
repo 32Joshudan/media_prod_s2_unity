@@ -147,14 +147,14 @@ public class DialogueManager : MonoBehaviour
         currentDialogueIndex++;
     }
 
-    private void skipDialogue()
+   /* private void skipDialogue()
     {
         if (dialogueString.yesOrNo = true)
         {
             Debug.Log("Hooba Dooba");
         }
 
-    }
+    }*/
 
     private void DialogueStop()
     {
