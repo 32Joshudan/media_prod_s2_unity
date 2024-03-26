@@ -15,8 +15,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private float turnSpeed = 2f;
 
+    private bool talkedTo = false;
+
     [SerializeField] DialogueTrigger yesOrNo;
-        [SerializeField] DialogueTrigger skipTo;
+    [SerializeField] DialogueTrigger skipTo;
 
     private List<dialogueString> dialogueList;
 
@@ -91,7 +93,7 @@ public class DialogueManager : MonoBehaviour
 
             if (line.isQuestion)
             {
-                Debug.Log("doobie woobie");
+                //Debug.Log("doobie woobie");
                 yield return StartCoroutine(TypeText(line.text));
 
                 option1Button.interactable = true;
@@ -137,7 +139,7 @@ public class DialogueManager : MonoBehaviour
 
         if (!dialogueList[currentDialogueIndex].isQuestion)
         {
-            Debug.Log("dongly wongly is not quesion");
+            //Debug.Log("dongly wongly is not quesion");
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
         }
 
@@ -147,17 +149,20 @@ public class DialogueManager : MonoBehaviour
         currentDialogueIndex++;
     }
 
-   /* private void skipDialogue()
-    {
-        if (dialogueString.yesOrNo = true)
-        {
-            Debug.Log("Hooba Dooba");
-        }
+    /* private void skipDialogue()
+     {
+         if (dialogueString.yesOrNo = true)
+         {
+             Debug.Log("Hooba Dooba");
+         }
 
-    }*/
+     }*/
 
     private void DialogueStop()
     {
+        talkedTo = true;
+        Debug.Log(talkedTo);
+
         StopAllCoroutines();
         dialogueText.text = "";
         dialogueParent.SetActive(false);
